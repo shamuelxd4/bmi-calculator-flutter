@@ -6,6 +6,7 @@ class BMICalculator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: InputPage(),
     );
   }
@@ -28,6 +29,7 @@ class _InputPageState extends State<InputPage> {
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
+        onPressed: () {},
       ),
     );
   }
