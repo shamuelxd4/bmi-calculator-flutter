@@ -5,11 +5,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'icon_content.dart';
 import 'reutilizable_card.dart';
 
-//constantes
-const buttonContainerHeight = 80.0;
-const activeCardColor = Color(0xff1d1e33);
-const inactiveCardColor = Color(0xff111328);
-const buttonContainerColor = Color(0xffeb1555);
+//constants
+import 'constants.dart';
+
 enum TypePerson {
   male,
   female,
@@ -21,6 +19,7 @@ class InputPage extends StatefulWidget {
 }
 
 class _InputPageState extends State<InputPage> {
+  int heightPerson = 180;
   TypePerson genero;
   @override
   Widget build(BuildContext context) {
@@ -31,8 +30,10 @@ class _InputPageState extends State<InputPage> {
         ),
       ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Expanded(
+            //2 primeras cards
             child: Row(
               children: [
                 Expanded(
@@ -43,8 +44,8 @@ class _InputPageState extends State<InputPage> {
                       });
                     },
                     color: genero == TypePerson.male
-                        ? (activeCardColor)
-                        : (inactiveCardColor),
+                        ? (kActiveCardColor)
+                        : (kInactiveCardColor),
                     cardChild: IconContent(
                       iconData: FontAwesomeIcons.mars,
                       title: "MALE",
@@ -59,8 +60,8 @@ class _InputPageState extends State<InputPage> {
                       });
                     },
                     color: genero == TypePerson.female
-                        ? (activeCardColor)
-                        : (inactiveCardColor),
+                        ? (kActiveCardColor)
+                        : (kInactiveCardColor),
                     cardChild: IconContent(
                       iconData: FontAwesomeIcons.venus,
                       title: "FEMALE",
@@ -70,32 +71,72 @@ class _InputPageState extends State<InputPage> {
               ],
             ),
           ),
+          //card ancho
           Expanded(
             child: ReutilizableCard(
-              color: activeCardColor,
+              color: kActiveCardColor,
+              cardChild: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "HEIGHT",
+                    style: kLableTextStyle,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.baseline,
+                    children: [
+                      Text(
+                        heightPerson.toString(),
+                        style: kStyleTextHeight,
+                      ),
+                      SizedBox(
+                        width: 5.0,
+                      ),
+                      Text(
+                        'cm',
+                        style: kLableTextStyle,
+                      ),
+                    ],
+                  ),
+                  Slider(
+                    value: heightPerson.toDouble(),
+                    min: 140.0,
+                    max: 240.0,
+                    activeColor: kButtonContainerColor,
+                    inactiveColor: Color(0xff8d8e98),
+                    onChanged: (double newValue) {
+                      setState(() {
+                        heightPerson = newValue.round();
+                      });
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
+          //2 ultimos cards
           Expanded(
             child: Row(
               children: [
                 Expanded(
                   child: ReutilizableCard(
-                    color: activeCardColor,
+                    color: kActiveCardColor,
                   ),
                 ),
                 Expanded(
                   child: ReutilizableCard(
-                    color: activeCardColor,
+                    color: kActiveCardColor,
                   ),
                 ),
               ],
             ),
           ),
           Container(
-            color: buttonContainerColor,
+            color: kButtonContainerColor,
             margin: EdgeInsets.only(top: 10.0),
             width: double.infinity,
-            height: buttonContainerHeight,
+            height: kButtonContainerHeight,
           )
         ],
       ),
